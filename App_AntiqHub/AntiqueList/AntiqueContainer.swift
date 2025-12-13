@@ -13,12 +13,18 @@ struct AntiqueContainer: View {
     var body: some View {
         VStack(spacing: 20) {
             ForEach(antiques) { antique in
-                AntiqueListView(antique: antique)
+                NavigationLink(destination: AntiqueDetailView(antique: antique))
+                {
+                    AntiqueListView(antique: antique)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
         }
     }
 }
 
 #Preview {
-    AntiqueContainer()
+    NavigationStack {
+            AntiqueContainer()
+        }
 }

@@ -48,7 +48,7 @@ let mockAntiques: [AntiqueType] = [
         anoFabricacao: 1996,
         preco: 1800.0,
         imagemPrincipal: "camisa_barcelona",
-        todasImagens: ["camisa_barcelona", "camisa_barcelona2"],
+        todasImagens: ["camisa_barcelona", "camisa_barcelona2", "camisa_barcelona3"],
         usuario: "ronaldo"
     ),
     AntiqueType(
@@ -89,7 +89,7 @@ let mockAntiques: [AntiqueType] = [
     ),
     AntiqueType(
         nomeItem: "Camisa Corinthians 77",
-        descricao: "Camisa autografada do S.C. Corinthians Paulista, Campeão Paulista 1970, um presente de Basílio, coleção pessoal.",
+        descricao: "Camisa autografada do S.C. Corinthians Paulista, Campeão Paulista 1977, um presente de Basílio, coleção pessoal.",
         anoFabricacao: 1977,
         preco: 8800.0,
         imagemPrincipal: "camisa_corinthians",

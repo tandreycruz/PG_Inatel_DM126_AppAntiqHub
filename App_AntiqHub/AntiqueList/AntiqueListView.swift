@@ -31,8 +31,8 @@ struct AntiqueListView: View {
                     .font(.subheadline)
                     .foregroundColor(Color("VintageGreen"))
                 
-                Text("por: \(antique.usuario)")
-                    .font(.headline)
+                Text("Vendedor: \(antique.usuario)")
+                    .font(.subheadline)
                     .foregroundColor(.gray)
             }
             Spacer()
