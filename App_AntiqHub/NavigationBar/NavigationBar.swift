@@ -5,53 +5,53 @@
 //  Created by user288577 on 12/12/25.
 //
 
-
 import SwiftUI
 
 struct NavigationBar: View {
-    @ObservedObject var userManager: UserManager
-    
+    @EnvironmentObject var userManager: UserManager
+
     @State private var nomeAtual: String = ""
     @State private var nomes: [String] = []
     @State private var showAlert: Bool = false
     @State private var nomeNovo: String = ""
     @State private var senhaNova: String = ""
-    
+
+    /*
     init(userManager: UserManager) {
         self.userManager = userManager
         _nomes = State(initialValue: userManager.usuarios.map { $0.username })
-        _nomeAtual = State(initialValue: userManager.usuarios.first?.username ?? "Usuário")
+        _nomeAtual = State(
+            initialValue: userManager.usuarios.first?.username ?? "Usuário")
     }
+     */
 
-    
     var body: some View {
-        HStack{
-            Menu{
-                ForEach(nomes, id: \.self){
+        HStack {
+            Menu {
+                ForEach(nomes, id: \.self) {
                     nome in
-                    Button(nome)
-                    {
+                    Button(nome) {
                         nomeAtual = nome
                     }
                 }
-            }label: {
+            } label: {
                 Text(nomeAtual)
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(Color("DarkBrown"))
             }
             
-            Button(action: {showAlert = true}){
+            Button(action: { showAlert = true }) {
                 Image(systemName: "plus.circle.fill")
-            .font(.title3)
-            .foregroundColor(Color("VintageGreen"))
+                    .font(.title3)
+                    .foregroundColor(Color("VintageGreen"))
             }
-            .sheet(isPresented: $showAlert){
-                VStack{
+            .sheet(isPresented: $showAlert) {
+                VStack {
                     Text("Adicionar novo usuario")
                         .font(.headline)
                         .foregroundColor(Color("DarkBrown"))
-
+                    
                     TextField("Digite o nome", text: $nomeNovo)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
@@ -61,7 +61,6 @@ struct NavigationBar: View {
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-
                     
                     HStack {
                         Button("Cancelar") {
@@ -73,14 +72,15 @@ struct NavigationBar: View {
                         
                         Button("Adicionar") {
                             if !nomeNovo.isEmpty && !senhaNova.isEmpty {
-                                userManager.adicionarUsuario(nome: nomeNovo, senha: senhaNova)
+                                userManager.adicionarUsuario(
+                                    nome: nomeNovo, senha: senhaNova)
                                 nomes.append(nomeNovo)
                                 nomeAtual = nomeNovo
                                 nomeNovo = ""
                                 senhaNova = ""
                                 showAlert = false
                             }
-
+                            
                         }
                         .foregroundColor(Color("VintageGreen"))
                     }
@@ -89,12 +89,25 @@ struct NavigationBar: View {
                 .padding()
                 .background(Color("BackgroundBeige"))
             }
+            
+            Button(action: {
+                userManager.isLoggedIn = false
+            }) {
+                Image(systemName: "rectangle.portrait.and.arrow.right")
+                    .font(.title3)
+                    .foregroundColor(Color("VintageGreen"))
+            }
+            
         }
         .padding()
         .background(Color("BackgroundBeige"))
+        .onAppear {
+                    nomes = userManager.usuarios.map { $0.username }
+                    nomeAtual = userManager.usuarios.first?.username ?? "Usuário"
+        }
     }
 }
 
 #Preview {
-    NavigationBar(userManager: UserManager())
+    NavigationBar().environmentObject(UserManager())
 }

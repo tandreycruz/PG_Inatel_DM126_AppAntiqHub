@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var userManager: UserManager
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var wrongUser = 0
     @State private var wrongPass = 0
-    @State private var showHomeScreen = false
+    //@State private var showHomeScreen = false
 
     @available(*, deprecated)
     var body: some View {
@@ -70,28 +71,31 @@ struct LoginView: View {
                     .background(Color("VintageGreen"))
                     .cornerRadius(30)
 
-                    NavigationLink(
-                        destination: ContentView(),
-                        isActive: $showHomeScreen
-                    ) {
-                        EmptyView()
-                    }.hidden()
+                    //NavigationLink(
+                    //    destination: ContentView(),
+                    //    isActive: $showHomeScreen
+                    //) {
+                    //    EmptyView()
+                    //}.hidden()
                 }
             }
         }
     }
 
     func authenticateUser(username: String, password: String) {
+
         guard let user = mockUsers.first(where: { $0.username == username })
         else {
             wrongUser = 1
             return
         }
+
         wrongUser = 0
         let hashedAttempt = LoginType.sha256(password)
         if hashedAttempt == user.passwordHash {
             wrongPass = 0
-            showHomeScreen = true
+            userManager.isLoggedIn = true
+            //showHomeScreen = true
         } else {
             wrongPass = 1
         }
@@ -100,5 +104,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView().environmentObject(UserManager())
 }
+

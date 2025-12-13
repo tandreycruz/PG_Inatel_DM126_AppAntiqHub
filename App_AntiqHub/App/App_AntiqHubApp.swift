@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct App_AntiqHubApp: App {
+    @StateObject var userManager = UserManager()
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            if userManager.isLoggedIn {
+                ContentView()
+                    .environmentObject(userManager)
+            } else {
+                LoginView()
+                    .environmentObject(userManager)
+            }
         }
     }
 }

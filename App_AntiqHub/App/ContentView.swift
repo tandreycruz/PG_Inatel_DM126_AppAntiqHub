@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var userManager = UserManager()
+    @EnvironmentObject var userManager: UserManager
 
     var body: some View {
         ZStack {
@@ -23,7 +23,7 @@ struct ContentView: View {
             .ignoresSafeArea()
 
             VStack {
-                NavigationBar(userManager: userManager)
+                NavigationBar()
 
                 GeometryReader { geo in
                     ScrollView(.vertical, showsIndicators: false) {
@@ -58,5 +58,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(UserManager())
 }
+
