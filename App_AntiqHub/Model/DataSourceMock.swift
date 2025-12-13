@@ -32,7 +32,7 @@ let goalsMock: [GoalType] = [
 */
 
 let mockUsers: [LoginType] = [
-    LoginType(username: "Taibe", password: "pass888"),
-    LoginType(username: "TioPatinhas", password: "pass111"),
-    LoginType(username: "Ronaldo", password: "pass999")
+    LoginType(username: "taibe", password: "pass888"),
+    LoginType(username: "tiopatinhas", password: "pass111"),
+    LoginType(username: "ronaldo", password: "pass999")
 ]

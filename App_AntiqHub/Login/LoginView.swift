@@ -39,12 +39,14 @@ struct LoginView: View {
                         .tracking(2)
                         .fontWeight(.bold)
                         .foregroundColor(Color("DarkBrown"))
-                    
+
                     Rectangle()
-                            .fill(Color("VintageGold").opacity(0.6))
-                            .frame(width: 120, height: 2)
-                    
+                        .fill(Color("VintageGold").opacity(0.6))
+                        .frame(width: 120, height: 2)
+
                     TextField("Username", text: $username)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.white.opacity(0.9))
@@ -52,6 +54,8 @@ struct LoginView: View {
                         .border(.red, width: CGFloat(wrongUser))
 
                     SecureField("Password", text: $password)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.white.opacity(0.9))
