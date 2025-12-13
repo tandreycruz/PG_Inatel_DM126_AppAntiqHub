@@ -30,6 +30,10 @@ struct AntiqueListView: View {
                 Text("R$ \(antique.preco, specifier: "%.2f")")
                     .font(.subheadline)
                     .foregroundColor(Color("VintageGreen"))
+                
+                Text("por: \(antique.usuario)")
+                    .font(.headline)
+                    .foregroundColor(.gray)
             }
             Spacer()
         }

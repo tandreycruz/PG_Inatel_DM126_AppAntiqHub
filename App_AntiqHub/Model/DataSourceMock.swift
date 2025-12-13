@@ -23,12 +23,6 @@ let carouselMock : [ServiceType] = [
     ServiceType(id: 3, nome: "Bom dia!", imagem: "motivacional3"),
     ServiceType(id: 4, nome: "Hora do cafe", imagem: "coffee")
 ]
-
-let goalsMock: [GoalType] = [
-    GoalType(id: 1, icone: "moon.zzz.fill", titulo: "Descanso", descricao: "Dormir 8h por noite"),
-    GoalType(id: 2, icone: "hare.fill", titulo: "Exercicio", descricao: "Correr 2km duas vezes por semana"),
-    GoalType(id: 3, icone: "goforward.60", titulo: "Redes Sociais", descricao: "Usar o celular por apenas 4h")
-]
 */
 
 let mockUsers: [LoginType] = [
@@ -39,30 +33,67 @@ let mockUsers: [LoginType] = [
 
 let mockAntiques: [AntiqueType] = [
     AntiqueType(
-        nomeItem: "Relógio de Bolso Antigo",
-        descricao: "Relógio suíço de 1920, funcionando perfeitamente.",
+        nomeItem: "Relógio Suíço de Bolso",
+        descricao: "Relógio suíço de 1920, cor em bronze, presente familiar com origem em integrante da família real dinamarquesa, funcionando perfeitamente.",
         anoFabricacao: 1920,
         preco: 1200.0,
         imagemPrincipal: "relogio_bolso",
-        todasImagens: ["relogio_bolso", "relogio_detalhe"],
+        todasImagens: ["relogio_bolso", "relogio_bolso2", "relogio_bolso3", "relogio_bolso4", "relogio_bolso5",
+                       "relogio_bolso6", "relogio_bolso7", "relogio_bolso8"],
         usuario: "taibe"
     ),
     AntiqueType(
-        nomeItem: "Moeda Rara",
-        descricao: "Moeda de prata do Império Romano, excelente estado de conservação.",
-        anoFabricacao: 180,
+        nomeItem: "Camisa Barcelona 96/97",
+        descricao: "Camisa autografada do Barcelona, coleção pessoal.",
+        anoFabricacao: 1996,
+        preco: 1800.0,
+        imagemPrincipal: "camisa_barcelona",
+        todasImagens: ["camisa_barcelona", "camisa_barcelona2"],
+        usuario: "ronaldo"
+    ),
+    AntiqueType(
+        nomeItem: "Moeda Medieval Portugal",
+        descricao: "Moeda rara de Portugal, D. Joao I (1385-1433), meio Real de 10 Soldos, excelente estado de conservação.",
+        anoFabricacao: 1385,
         preco: 2500.0,
-        imagemPrincipal: "moeda_romana",
-        todasImagens: ["moeda_romana", "moeda_detalhe"],
+        imagemPrincipal: "moeda_rara",
+        todasImagens: ["moeda_rara", "moeda_rara2", "moeda_rara3", "moeda_rara4"],
+        usuario: "tiopatinhas"
+    ),
+    AntiqueType(
+        nomeItem: "Moeda Medieval França",
+        descricao: "Moeda rara da França, King Charles IV (1322-1328), Maille Blanche 1MB Prata, excelente estado de conservação.",
+        anoFabricacao: 1322,
+        preco: 2800.0,
+        imagemPrincipal: "moeda_franca",
+        todasImagens: ["moeda_franca", "moeda_franca2", "moeda_franca3", "moeda_franca4"],
         usuario: "tiopatinhas"
     ),
     AntiqueType(
         nomeItem: "Vitrola Clássica",
-        descricao: "Vitrola dos anos 50, ainda toca discos de vinil.",
+        descricao: "Vitrola dos anos 50, edição especial limitada, ainda toca discos de vinil.",
         anoFabricacao: 1955,
         preco: 1800.0,
-        imagemPrincipal: "vitrola",
-        todasImagens: ["vitrola", "vitrola_detalhe"],
+        imagemPrincipal: "vitrola_retro",
+        todasImagens: ["vitrola_retro", "vitrola_retro2", "vitrola_retro3", "vitrola_retro4"],
+        usuario: "taibe"
+    ),
+    AntiqueType(
+        nomeItem: "Camisa Seleção Brasileira 70",
+        descricao: "Camisa autografada da seleção brasileira, Copa do Mundo do México 1970, um presente de João Havelange, coleção pessoal.",
+        anoFabricacao: 1970,
+        preco: 2500.0,
+        imagemPrincipal: "camisa_selecao70",
+        todasImagens: ["camisa_selecao70", "camisa_selecao70_2"],
+        usuario: "ronaldo"
+    ),
+    AntiqueType(
+        nomeItem: "Camisa Corinthians 77",
+        descricao: "Camisa autografada do S.C. Corinthians Paulista, Campeão Paulista 1970, um presente de Basílio, coleção pessoal.",
+        anoFabricacao: 1977,
+        preco: 8800.0,
+        imagemPrincipal: "camisa_corinthians",
+        todasImagens: ["camisa_corinthians", "camisa_corinthians2"],
         usuario: "ronaldo"
     )
 ]
