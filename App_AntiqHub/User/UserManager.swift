@@ -11,6 +11,7 @@ import Foundation
 class UserManager: ObservableObject {
     @Published var usuarios: [LoginType]
     @Published var isLoggedIn: Bool = false
+    @Published var usuarioAtual: String? = nil
 
     init(usuarios: [LoginType] = mockUsers) {
         self.usuarios = usuarios

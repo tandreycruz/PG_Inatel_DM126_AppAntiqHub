@@ -40,7 +40,7 @@ struct NavigationBar: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color("DarkBrown"))
             }
-            
+
             Button(action: { showAlert = true }) {
                 Image(systemName: "plus.circle.fill")
                     .font(.title3)
@@ -51,17 +51,17 @@ struct NavigationBar: View {
                     Text("Adicionar novo usuario")
                         .font(.headline)
                         .foregroundColor(Color("DarkBrown"))
-                    
+
                     TextField("Digite o nome", text: $nomeNovo)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     SecureField("Digite a senha", text: $senhaNova)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
+
                     HStack {
                         Button("Cancelar") {
                             showAlert = false
@@ -69,7 +69,7 @@ struct NavigationBar: View {
                             senhaNova = ""
                         }
                         .foregroundColor(Color("DarkBrown"))
-                        
+
                         Button("Adicionar") {
                             if !nomeNovo.isEmpty && !senhaNova.isEmpty {
                                 userManager.adicionarUsuario(
@@ -80,7 +80,7 @@ struct NavigationBar: View {
                                 senhaNova = ""
                                 showAlert = false
                             }
-                            
+
                         }
                         .foregroundColor(Color("VintageGreen"))
                     }
@@ -89,7 +89,7 @@ struct NavigationBar: View {
                 .padding()
                 .background(Color("BackgroundBeige"))
             }
-            
+
             Button(action: {
                 userManager.isLoggedIn = false
             }) {
@@ -97,13 +97,14 @@ struct NavigationBar: View {
                     .font(.title3)
                     .foregroundColor(Color("VintageGreen"))
             }
-            
+
         }
         .padding()
         .background(Color("BackgroundBeige"))
         .onAppear {
-                    nomes = userManager.usuarios.map { $0.username }
-                    nomeAtual = userManager.usuarios.first?.username ?? "Usuário"
+            nomes = userManager.usuarios.map { $0.username }
+            //nomeAtual = userManager.usuarios.first?.username ?? "Usuário"
+            nomeAtual = userManager.usuarioAtual ?? "Usuário"
         }
     }
 }

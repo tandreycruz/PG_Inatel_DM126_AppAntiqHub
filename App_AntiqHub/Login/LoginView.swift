@@ -13,7 +13,10 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var wrongUser = 0
     @State private var wrongPass = 0
-    //@State private var showHomeScreen = false
+
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var isRegisterMode: Bool = false
 
     @available(*, deprecated)
     var body: some View {
@@ -45,38 +48,67 @@ struct LoginView: View {
                         .fill(Color("VintageGold").opacity(0.6))
                         .frame(width: 120, height: 2)
 
-                    TextField("Username", text: $username)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.white.opacity(0.9))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUser))
-
-                    SecureField("Password", text: $password)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.white.opacity(0.9))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongPass))
-
-                    Button("Login") {
-                        authenticateUser(username: username, password: password)
-                    }
-                    .foregroundColor(.white)
+                    //TextField("Username", text: $username)
+                    TextField(
+                        isRegisterMode ? "New Username" : "Username",
+                        text: $username
+                    )
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .padding()
                     .frame(width: 300, height: 50)
-                    .background(Color("VintageGreen"))
-                    .cornerRadius(30)
+                    .background(Color.white.opacity(0.9))
+                    .cornerRadius(10)
+                    .border(.red, width: CGFloat(wrongUser))
 
-                    //NavigationLink(
-                    //    destination: ContentView(),
-                    //    isActive: $showHomeScreen
-                    //) {
-                    //    EmptyView()
-                    //}.hidden()
+                    //SecureField("Password", text: $password)
+                    SecureField(
+                        isRegisterMode ? "New Password" : "Password",
+                        text: $password
+                    )
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color.white.opacity(0.9))
+                    .cornerRadius(10)
+                    .border(.red, width: CGFloat(wrongPass))
+
+                    if isRegisterMode {
+                        Button("Cadastrar") {
+                            registerUser(username: username, password: password)
+                        }
+                        .foregroundColor(.white)
+                        .frame(width: 300, height: 50)
+                        .background(Color("VintageGold"))
+                        .cornerRadius(30)
+                        .alert(alertMessage, isPresented: $showAlert) {
+                            Button("OK", role: .cancel) {}
+                        }
+                    } else {
+                        Button("Login") {
+                            authenticateUser(
+                                username: username, password: password)
+                        }
+                        .foregroundColor(.white)
+                        .frame(width: 300, height: 50)
+                        .background(Color("VintageGreen"))
+                        .cornerRadius(30)
+                    }
+
+                    Button(
+                        isRegisterMode
+                            ? "Já tem conta? Fazer Login"
+                            : "Novo usuário? Cadastre-se"
+                    ) {
+                        isRegisterMode.toggle()
+
+                        wrongUser = 0
+                        wrongPass = 0
+                    }
+                    .foregroundColor(Color("VintageGold"))
+                    .padding(.top, 10)
+
                 }
             }
         }
@@ -84,7 +116,12 @@ struct LoginView: View {
 
     func authenticateUser(username: String, password: String) {
 
-        guard let user = mockUsers.first(where: { $0.username == username })
+        //guard let user = mockUsers.first(where: { $0.username == username })
+        //else {
+        guard
+            let user = userManager.usuarios.first(where: {
+                $0.username == username
+            })
         else {
             wrongUser = 1
             return
@@ -95,10 +132,29 @@ struct LoginView: View {
         if hashedAttempt == user.passwordHash {
             wrongPass = 0
             userManager.isLoggedIn = true
-            //showHomeScreen = true
+            userManager.usuarioAtual = username
         } else {
             wrongPass = 1
         }
+    }
+
+    func registerUser(username: String, password: String) {
+        guard !userManager.usuarios.contains(where: { $0.username == username })
+        else {
+            wrongUser = 1
+            alertMessage = "Usuário já existe."
+            showAlert = true
+
+            return
+        }
+
+        userManager.adicionarUsuario(nome: username, senha: password)
+        wrongUser = 0
+        wrongPass = 0
+        userManager.isLoggedIn = true
+        userManager.usuarioAtual = username
+        alertMessage = "Usuário cadastrado com sucesso!"
+        showAlert = true
     }
 
 }
@@ -106,4 +162,3 @@ struct LoginView: View {
 #Preview {
     LoginView().environmentObject(UserManager())
 }
-
