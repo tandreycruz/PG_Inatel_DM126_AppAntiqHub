@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var userManager: UserManager
+    @State private var antiques: [AntiqueType] = mockAntiques
 
     var body: some View {
         ZStack {
@@ -28,14 +29,13 @@ struct ContentView: View {
                 GeometryReader { geo in
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 20) {
+                            // Cabeçalho
                             Image(systemName: "globe")
                                 .imageScale(.large)
                                 .foregroundColor(Color("VintageGreen"))
 
                             Text("Bem-vindo ao AntiqHub")
-                                .font(
-                                    .custom("PlayfairDisplay-Regular", size: 28)
-                                )
+                                .font(.custom("PlayfairDisplay-Regular", size: 28))
                                 .foregroundColor(Color("DarkBrown"))
 
                             Rectangle()
@@ -45,8 +45,10 @@ struct ContentView: View {
                             Text("Explore tesouros e antiguidades")
                                 .font(.headline)
                                 .foregroundColor(Color("VintageGreen"))
+
+                            // Lista de antiguidades
+                            AntiqueContainer()
                         }
-                        .frame(height: geo.size.height)  // ocupa altura toda
                         .frame(maxWidth: .infinity)
                         .padding(.vertical)
                     }
@@ -54,10 +56,8 @@ struct ContentView: View {
             }
         }
     }
-
 }
 
 #Preview {
     ContentView().environmentObject(UserManager())
 }
-

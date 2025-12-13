@@ -36,3 +36,33 @@ let mockUsers: [LoginType] = [
     LoginType(username: "tiopatinhas", password: "pass111"),
     LoginType(username: "ronaldo", password: "pass999")
 ]
+
+let mockAntiques: [AntiqueType] = [
+    AntiqueType(
+        nomeItem: "Relógio de Bolso Antigo",
+        descricao: "Relógio suíço de 1920, funcionando perfeitamente.",
+        anoFabricacao: 1920,
+        preco: 1200.0,
+        imagemPrincipal: "relogio_bolso",
+        todasImagens: ["relogio_bolso", "relogio_detalhe"],
+        usuario: "taibe"
+    ),
+    AntiqueType(
+        nomeItem: "Moeda Rara",
+        descricao: "Moeda de prata do Império Romano, excelente estado de conservação.",
+        anoFabricacao: 180,
+        preco: 2500.0,
+        imagemPrincipal: "moeda_romana",
+        todasImagens: ["moeda_romana", "moeda_detalhe"],
+        usuario: "tiopatinhas"
+    ),
+    AntiqueType(
+        nomeItem: "Vitrola Clássica",
+        descricao: "Vitrola dos anos 50, ainda toca discos de vinil.",
+        anoFabricacao: 1955,
+        preco: 1800.0,
+        imagemPrincipal: "vitrola",
+        todasImagens: ["vitrola", "vitrola_detalhe"],
+        usuario: "ronaldo"
+    )
+]
