@@ -13,7 +13,8 @@ struct AntiqueType: Identifiable {
     let descricao: String
     let anoFabricacao: Int
     let preco: Double
-    let imagemPrincipal: String          // nome da imagem no Assets
-    let todasImagens: [String]           // array com nomes das imagens adicionais
-    let usuario: String                  // username do dono da antiguidade
+    let imagemPrincipal: String
+    let todasImagens: [String]
+    let usuario: String
+    var comprado: Bool = false
 }

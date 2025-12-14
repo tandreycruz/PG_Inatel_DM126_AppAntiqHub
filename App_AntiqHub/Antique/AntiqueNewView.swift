@@ -5,8 +5,8 @@
 //  Created by user288577 on 12/13/25.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct AntiqueNewView: View {
     @EnvironmentObject var userManager: UserManager
@@ -70,6 +70,13 @@ struct AntiqueNewView: View {
                     .padding()
                     .background(Color("VintageGold"))
                     .cornerRadius(10)
+
+                    Button("Cancelar") {
+                        dismiss()  // fecha sem salvar
+                    }
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity)
+
                 }
             }
             .navigationTitle("Novo Anúncio")
@@ -78,8 +85,10 @@ struct AntiqueNewView: View {
             uiImages.removeAll()
             for item in newItems {
                 Task {
-                    if let data = try? await item.loadTransferable(type: Data.self),
-                       let uiImage = UIImage(data: data) {
+                    if let data = try? await item.loadTransferable(
+                        type: Data.self),
+                        let uiImage = UIImage(data: data)
+                    {
                         uiImages.append(uiImage)
                     }
                 }

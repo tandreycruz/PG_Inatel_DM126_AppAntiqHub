@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var userManager: UserManager
-    //@State private var antiques: [AntiqueType] = mockAntiques
     @EnvironmentObject var antiqueManager: AntiqueManager
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -28,38 +27,29 @@ struct ContentView: View {
                 VStack {
                     NavigationBar()
 
-                    GeometryReader { geo in
-                        ScrollView(.vertical, showsIndicators: false) {
-                            VStack(spacing: 20) {
-                                // Cabeçalho
-                                Image(systemName: "globe")
-                                    .imageScale(.large)
-                                    .foregroundColor(Color("VintageGreen"))
+                    VStack(spacing: 20) {
+                        Image(systemName: "globe")
+                            .imageScale(.large)
+                            .foregroundColor(Color("VintageGreen"))
 
-                                Text("Bem-vindo ao AntiqHub")
-                                    .font(
-                                        .custom(
-                                            "PlayfairDisplay-Regular", size: 28)
-                                    )
-                                    .foregroundColor(Color("DarkBrown"))
+                        Text("Bem-vindo ao AntiqHub")
+                            .font(.custom("PlayfairDisplay-Regular", size: 28))
+                            .foregroundColor(Color("DarkBrown"))
 
-                                Rectangle()
-                                    .fill(Color("VintageGold").opacity(0.6))
-                                    .frame(width: 150, height: 2)
+                        Rectangle()
+                            .fill(Color("VintageGold").opacity(0.6))
+                            .frame(width: 150, height: 2)
 
-                                Text("Explore tesouros e antiguidades")
-                                    .font(.headline)
-                                    .foregroundColor(Color("VintageGreen"))
+                        Text("Explore tesouros e antiguidades")
+                            .font(.headline)
+                            .foregroundColor(Color("VintageGreen"))
 
-                                //AntiqueContainer()
-                                AntiqueContainer(antiques: antiqueManager.antiques)
-                            }
-
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical)
+                        AntiqueContainer()
+                            .environmentObject(antiqueManager)
                     }
+                    .padding(.vertical)
                 }
+
             }
         }
         .tint(Color("VintageGreen"))

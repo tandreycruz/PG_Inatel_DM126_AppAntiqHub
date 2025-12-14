@@ -17,30 +17,53 @@ struct AntiqueListView: View {
                 .scaledToFit()
                 .frame(width: 100, height: 100)
                 .cornerRadius(10)
+                .shadow(radius: 3)
 
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(antique.nomeItem)
-                    .font(.headline)
+                    .font(.custom("PlayfairDisplay-Regular", size: 22))
                     .foregroundColor(Color("DarkBrown"))
+                    .fontWeight(.bold)
 
                 Text("Ano: \(antique.anoFabricacao)")
                     .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("VintageGreen"))
 
                 Text("R$ \(antique.preco, specifier: "%.2f")")
                     .font(.subheadline)
-                    .foregroundColor(Color("VintageGreen"))
-                
+                    .foregroundColor(Color("VintageGold"))
+                    .fontWeight(.semibold)
+
                 Text("Vendedor: \(antique.usuario)")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .font(.footnote)
+                    .foregroundColor(Color("DarkBrown").opacity(0.7))
+
+                if antique.comprado {
+                    HStack(spacing: 6) {
+                        Image(systemName: "cart.fill")
+                            .foregroundColor(.white)
+                            .padding(6)
+                            .background(Color.green)
+                            .clipShape(Circle())
+
+                        Text("Comprado")
+                            .font(.headline)
+                            .foregroundColor(.green)
+                            .fontWeight(.bold)
+                    }
+                    .padding(.top, 6)
+                }
             }
             Spacer()
         }
         .padding()
-        .background(Color.white.opacity(0.8))
+        .background(
+            antique.comprado
+                ? Color.green.opacity(0.25)
+                : Color("BackgroundBeige").opacity(0.9)
+        )
         .cornerRadius(12)
-        .shadow(color: Color("VintageGold").opacity(0.3), radius: 4, x: 0, y: 2)
+        .shadow(color: Color("VintageGold").opacity(0.4), radius: 5, x: 0, y: 3)
     }
 }
 
@@ -53,5 +76,8 @@ struct AntiqueListView: View {
             preco: 1200.0,
             imagemPrincipal: "relogio_bolso",
             todasImagens: ["relogio_bolso", "relogio_detalhe"],
-            usuario: "taibe"))
+            usuario: "taibe",
+            comprado: true
+        )
+    )
 }

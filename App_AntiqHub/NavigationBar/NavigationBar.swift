@@ -9,28 +9,25 @@ import SwiftUI
 
 struct NavigationBar: View {
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var antiqueManager: AntiqueManager
+
     @State private var showNewAntique = false
     @State private var nomeAtual: String = ""
     @State private var nomes: [String] = []
 
     var body: some View {
         HStack {
-            // Menu de seleção de usuário logado
-            Menu {
-                ForEach(nomes, id: \.self) { nome in
-                    Button(nome) {
-                        nomeAtual = nome
-                        userManager.usuarioAtual = nome
-                    }
-                }
-            } label: {
-                Text(nomeAtual)
+            if let usuario = userManager.usuarioAtual {
+                let count = antiqueManager.antiques.filter { $0.usuario == usuario }.count
+
+                Text("\(usuario) (Qtde. Publicações: \(count))")                
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(Color("DarkBrown"))
             }
 
-            // ✅ Botão para novo anúncio
+            Spacer()
+
             Button(action: { showNewAntique = true }) {
                 Image(systemName: "plus.circle.fill")
                     .font(.title3)
@@ -41,7 +38,6 @@ struct NavigationBar: View {
                     .environmentObject(userManager)
             }
 
-            // Botão de logout
             Button(action: {
                 userManager.isLoggedIn = false
                 userManager.usuarioAtual = nil
@@ -55,7 +51,9 @@ struct NavigationBar: View {
         .background(Color("BackgroundBeige"))
         .onAppear {
             nomes = userManager.usuarios.map { $0.username }
-            nomeAtual = userManager.usuarioAtual ?? (userManager.usuarios.first?.username ?? "Usuário")
+            nomeAtual =
+                userManager.usuarioAtual
+                ?? (userManager.usuarios.first?.username ?? "Usuário")
         }
     }
 }
