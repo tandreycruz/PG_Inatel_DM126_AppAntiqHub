@@ -27,10 +27,12 @@ struct ContentView: View {
                 VStack {
                     NavigationBar()
 
-                    VStack(spacing: 20) {
-                        Image(systemName: "globe")
-                            .imageScale(.large)
-                            .foregroundColor(Color("VintageGreen"))
+                    VStack(spacing: 10) {
+                        Image("iconeAntiqHub")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                            .padding(.top, 10)
 
                         Text("Bem-vindo ao AntiqHub")
                             .font(.custom("PlayfairDisplay-Regular", size: 28))

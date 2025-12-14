@@ -33,10 +33,10 @@ struct LoginView: View {
                 .ignoresSafeArea()
 
                 VStack(spacing: 20) {
-                    Image("app_logo")
+                    Image("iconeAntiqHub")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 180, height: 180)
+                        .frame(width: 200, height: 200)
 
                     Text("AntiqhuB")
                         .font(.custom("Playfair9pt-Regular", size: 40))
@@ -48,7 +48,6 @@ struct LoginView: View {
                         .fill(Color("VintageGold").opacity(0.6))
                         .frame(width: 120, height: 2)
 
-                    //TextField("Username", text: $username)
                     TextField(
                         isRegisterMode ? "New Username" : "Username",
                         text: $username
@@ -61,7 +60,6 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .border(.red, width: CGFloat(wrongUser))
 
-                    //SecureField("Password", text: $password)
                     SecureField(
                         isRegisterMode ? "New Password" : "Password",
                         text: $password
