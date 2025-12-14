@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AntiqueContainer: View {
-    let antiques: [AntiqueType] = mockAntiques
+    //let antiques: [AntiqueType] = mockAntiques
+    let antiques: [AntiqueType]
 
     var body: some View {
         VStack(spacing: 20) {
@@ -25,6 +26,6 @@ struct AntiqueContainer: View {
 
 #Preview {
     NavigationStack {
-            AntiqueContainer()
+            AntiqueContainer(antiques: mockAntiques)
         }
 }

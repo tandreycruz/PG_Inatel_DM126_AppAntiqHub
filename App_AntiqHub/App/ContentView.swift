@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var userManager: UserManager
-    @State private var antiques: [AntiqueType] = mockAntiques
-
+    //@State private var antiques: [AntiqueType] = mockAntiques
+    @EnvironmentObject var antiqueManager: AntiqueManager
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -50,7 +51,8 @@ struct ContentView: View {
                                     .font(.headline)
                                     .foregroundColor(Color("VintageGreen"))
 
-                                AntiqueContainer()
+                                //AntiqueContainer()
+                                AntiqueContainer(antiques: antiqueManager.antiques)
                             }
 
                         }
@@ -65,5 +67,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView().environmentObject(UserManager())
+    ContentView()
+        .environmentObject(UserManager())
+        .environmentObject(AntiqueManager())
 }

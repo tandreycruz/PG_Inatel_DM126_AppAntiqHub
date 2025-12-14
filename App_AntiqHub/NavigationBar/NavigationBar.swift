@@ -9,29 +9,18 @@ import SwiftUI
 
 struct NavigationBar: View {
     @EnvironmentObject var userManager: UserManager
-
+    @State private var showNewAntique = false
     @State private var nomeAtual: String = ""
     @State private var nomes: [String] = []
-    @State private var showAlert: Bool = false
-    @State private var nomeNovo: String = ""
-    @State private var senhaNova: String = ""
-
-    /*
-    init(userManager: UserManager) {
-        self.userManager = userManager
-        _nomes = State(initialValue: userManager.usuarios.map { $0.username })
-        _nomeAtual = State(
-            initialValue: userManager.usuarios.first?.username ?? "Usuário")
-    }
-     */
 
     var body: some View {
         HStack {
+            // Menu de seleção de usuário logado
             Menu {
-                ForEach(nomes, id: \.self) {
-                    nome in
+                ForEach(nomes, id: \.self) { nome in
                     Button(nome) {
                         nomeAtual = nome
+                        userManager.usuarioAtual = nome
                     }
                 }
             } label: {
@@ -41,70 +30,32 @@ struct NavigationBar: View {
                     .foregroundColor(Color("DarkBrown"))
             }
 
-            Button(action: { showAlert = true }) {
+            // ✅ Botão para novo anúncio
+            Button(action: { showNewAntique = true }) {
                 Image(systemName: "plus.circle.fill")
                     .font(.title3)
                     .foregroundColor(Color("VintageGreen"))
             }
-            .sheet(isPresented: $showAlert) {
-                VStack {
-                    Text("Adicionar novo usuario")
-                        .font(.headline)
-                        .foregroundColor(Color("DarkBrown"))
-
-                    TextField("Digite o nome", text: $nomeNovo)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                    SecureField("Digite a senha", text: $senhaNova)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                    HStack {
-                        Button("Cancelar") {
-                            showAlert = false
-                            nomeNovo = ""
-                            senhaNova = ""
-                        }
-                        .foregroundColor(Color("DarkBrown"))
-
-                        Button("Adicionar") {
-                            if !nomeNovo.isEmpty && !senhaNova.isEmpty {
-                                userManager.adicionarUsuario(
-                                    nome: nomeNovo, senha: senhaNova)
-                                nomes.append(nomeNovo)
-                                nomeAtual = nomeNovo
-                                nomeNovo = ""
-                                senhaNova = ""
-                                showAlert = false
-                            }
-
-                        }
-                        .foregroundColor(Color("VintageGreen"))
-                    }
-                }
-                .presentationDetents([.fraction(0.2)])
-                .padding()
-                .background(Color("BackgroundBeige"))
+            .sheet(isPresented: $showNewAntique) {
+                AntiqueNewView()
+                    .environmentObject(userManager)
             }
 
+            // Botão de logout
             Button(action: {
                 userManager.isLoggedIn = false
+                userManager.usuarioAtual = nil
             }) {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
                     .font(.title3)
                     .foregroundColor(Color("VintageGreen"))
             }
-
         }
         .padding()
         .background(Color("BackgroundBeige"))
         .onAppear {
             nomes = userManager.usuarios.map { $0.username }
-            //nomeAtual = userManager.usuarios.first?.username ?? "Usuário"
-            nomeAtual = userManager.usuarioAtual ?? "Usuário"
+            nomeAtual = userManager.usuarioAtual ?? (userManager.usuarios.first?.username ?? "Usuário")
         }
     }
 }
